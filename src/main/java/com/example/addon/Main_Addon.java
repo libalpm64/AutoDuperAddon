@@ -1,6 +1,7 @@
 package com.example.addon;
 
 import com.example.addon.modules.AutoIgnore;
+import com.example.addon.modules.DonkeyInstantDupe;
 import com.example.addon.modules.DonkeyRider;
 import com.example.addon.modules.ItemFrameDupe;
 import com.example.addon.modules.LlamaDupe2bfr;
@@ -22,6 +23,7 @@ public class Main_Addon extends MeteorAddon {
         Modules.get().add(new DonkeyRider());
         Modules.get().add(new ItemFrameDupe());
         Modules.get().add(new LlamaDupe2bfr());
+        Modules.get().add(new DonkeyInstantDupe());
         Modules.get().add(new AutoIgnore());
     }
 
