@@ -1,6 +1,7 @@
 package com.example.addon;
 
 import com.example.addon.modules.AutoIgnore;
+import com.example.addon.modules.CoordinateSpoofer;
 import com.example.addon.modules.DonkeyInstantDupe;
 import com.example.addon.modules.DonkeyRider;
 import com.example.addon.modules.ItemFrameDupe;
@@ -17,7 +18,7 @@ public class Main_Addon extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        LOG.info("Initializing 6b6t AutoDuper");
+        LOG.info("Initializing 8b8t/6b6tAutoDuper");
 
         // Modules
         Modules.get().add(new DonkeyRider());
@@ -25,6 +26,7 @@ public class Main_Addon extends MeteorAddon {
         Modules.get().add(new LlamaDupe2bfr());
         Modules.get().add(new DonkeyInstantDupe());
         Modules.get().add(new AutoIgnore());
+        Modules.get().add(new CoordinateSpoofer());
     }
 
     @Override
