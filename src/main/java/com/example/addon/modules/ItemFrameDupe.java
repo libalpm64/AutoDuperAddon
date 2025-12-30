@@ -22,6 +22,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import com.example.addon.mixins.IPlayerInventoryMixin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,15 +205,17 @@ public class ItemFrameDupe extends Module {
         if (!Utils.canUpdate()) return;
 
         if (autoScroll.get() && autoScrollTimer <= 0) {
-            int slot = mc.player.getInventory().selected;
-            mc.player.getInventory().selected = (slot + 1) % 9;
+            IPlayerInventoryMixin inventory = (IPlayerInventoryMixin) mc.player.getInventory();
+            int slot = inventory.getSelectedSlot();
+            inventory.setSelectedSlot((slot + 1) % 9);
             ((IClientPlayerInteractionManager) mc.interactionManager).meteor$syncSelected();
             autoScrollTimer = getDelay(scrollDelay.get());
         } else {
             autoScrollTimer--;
         }
 
-        Box box = new Box(mc.player.position().add(-distance.get(), -distance.get(), -distance.get()), mc.player.position().add(distance.get(), distance.get(), distance.get()));
+        Vec3d pos = new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ());
+        Box box = new Box(pos.add(-distance.get(), -distance.get(), -distance.get()), pos.add(distance.get(), distance.get(), distance.get()));
         List<ItemFrameEntity> itemFrames = mc.world.getEntitiesByClass(ItemFrameEntity.class, box, e -> true);
         int existingFrames = itemFrames.size();
 

@@ -109,7 +109,7 @@ public class DonkeyRider extends Module {
     public void onActivate() {
         super.onActivate();
         if (mc.player != null)
-            firstPos = mc.player.position();
+            firstPos = new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ());
 
         start();
     }
@@ -138,9 +138,9 @@ public class DonkeyRider extends Module {
                     }
                     YAW = yaw.get();
                     PlayerEntity player = mc.player;
-                    if (player == null || player.position() == null) return;
+                    if (player == null) return;
                     if (player.hasVehicle() && player.getVehicle() instanceof DonkeyEntity) {
-                        currentPos = player.position();
+                        currentPos = new Vec3d(player.getX(), player.getY(), player.getZ());
                         //  mc.player.sendMessage(Text.of("Distance from starting position: " + DECIMAL_FORMAT.format(currentPos.distanceTo(firstPos)) + " blocks"), true);
                         if (currentPos != null && firstPos != null) {
                             if (currentPos != null && currentPos.distanceTo(firstPos) >= distance.get() + 1 && !yawChanged1) {
@@ -166,7 +166,7 @@ public class DonkeyRider extends Module {
                                 //bad var names. :(
                                 YAW = yaw.get();
                                 finalPos = firstPos;
-                                firstPos = player.position();
+                                firstPos = new Vec3d(player.getX(), player.getY(), player.getZ());
                                 yaw.set(YAW);
                                 yawChanged1 = true;
                                 yawChanged2 = false;
@@ -201,7 +201,7 @@ public class DonkeyRider extends Module {
                         setPressed(mc.options.forwardKey, false);
 
                         if (dismounted && remount.get()) {
-                            List<DonkeyEntity> donkeys = player.level().getEntitiesByClass(DonkeyEntity.class, player.getBoundingBox().inflate(5), Entity -> !Entity.hasControllingPassenger());
+                            List<DonkeyEntity> donkeys = player.getEntityWorld().getEntitiesByClass(DonkeyEntity.class, player.getBoundingBox().expand(5), Entity -> !Entity.hasControllingPassenger());
                             if (!donkeys.isEmpty() && !player.hasVehicle() && !remounted && !yawChanged2) {
                                 mc.player.sendMessage(Text.of("Attempting to remount"), false);
                                 try {
@@ -242,7 +242,7 @@ public class DonkeyRider extends Module {
                                 yawChanged2 = true;
                                 remounted = true;
                                 yawChanged1 = false;
-                                firstPos = player.position();
+                                firstPos = new Vec3d(player.getX(), player.getY(), player.getZ());
                                 mc.player.sendMessage(Text.of("Remount Successfull"), false);
                             }
                         }
