@@ -234,10 +234,10 @@ public class ItemFrameDupe extends Module {
             int toPlace = maxPlacesPerTick.get() - existingFrames;
             int placed = 0;
             List<BlockPos> positions = getPlaceablePositions();
-            for (BlockPos pos : positions) {
+            for (BlockPos framePos : positions) {
                 if (placed >= toPlace) break;
-                if (BlockUtils.canPlace(pos, true)) {
-                    if (BlockUtils.place(pos, itemResult, rotate.get(), 50, true, false, swapBack.get())) {
+                if (BlockUtils.canPlace(framePos, true)) {
+                    if (BlockUtils.place(framePos, itemResult, rotate.get(), 50, true, false, swapBack.get())) {
                         placed++;
                     }
                 }
@@ -279,8 +279,8 @@ public class ItemFrameDupe extends Module {
     @EventHandler
     private void onRender3D(Render3DEvent event) {
         if (renderPlacement.get()) {
-            for (BlockPos pos : getPlaceablePositions()) {
-                event.renderer.box(pos, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
+            for (BlockPos framePos : getPlaceablePositions()) {
+                event.renderer.box(framePos, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
             }
         }
     }
