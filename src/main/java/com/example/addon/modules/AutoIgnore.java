@@ -90,7 +90,7 @@ public class AutoIgnore extends Module {
     private void updatePlayersToIgnore() {
         playersToIgnore.clear();
         for (PlayerListEntry entry : mc.getNetworkHandler().getPlayerList()) {
-            String name = entry.getProfile().getName();
+            String name = entry.getProfile().name();
             if (ignoredPlayers.contains(name)) continue;
 
             boolean isException = false;

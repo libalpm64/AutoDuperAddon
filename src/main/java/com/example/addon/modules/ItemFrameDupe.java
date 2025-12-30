@@ -204,15 +204,15 @@ public class ItemFrameDupe extends Module {
         if (!Utils.canUpdate()) return;
 
         if (autoScroll.get() && autoScrollTimer <= 0) {
-            int slot = mc.player.getInventory().selectedSlot;
-            mc.player.getInventory().selectedSlot = (slot + 1) % 9;
+            int slot = mc.player.getInventory().selected;
+            mc.player.getInventory().selected = (slot + 1) % 9;
             ((IClientPlayerInteractionManager) mc.interactionManager).meteor$syncSelected();
             autoScrollTimer = getDelay(scrollDelay.get());
         } else {
             autoScrollTimer--;
         }
 
-        Box box = new Box(mc.player.getPos().add(-distance.get(), -distance.get(), -distance.get()), mc.player.getPos().add(distance.get(), distance.get(), distance.get()));
+        Box box = new Box(mc.player.position().add(-distance.get(), -distance.get(), -distance.get()), mc.player.position().add(distance.get(), distance.get(), distance.get()));
         List<ItemFrameEntity> itemFrames = mc.world.getEntitiesByClass(ItemFrameEntity.class, box, e -> true);
         int existingFrames = itemFrames.size();
 
